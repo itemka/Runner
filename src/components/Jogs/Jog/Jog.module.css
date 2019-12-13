@@ -1,0 +1,33 @@
+.jog {
+
+    /*background-color: goldenrod;*/
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.jogImg {
+    width: 87px;
+    height: 87px;
+    object-fit: contain;
+    margin-right: 46px;
+}
+
+.jogData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dataItem {
+    margin: 5px 0;
+}
+
+.thick {
+    font-weight: 500;
+}
+
+.dataItemColor {
+    color: #818181;;
+}

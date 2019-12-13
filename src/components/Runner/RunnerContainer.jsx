@@ -1,10 +1,7 @@
-import React, {Component} from "react";
-import css from "./Runner.module.css";
+import React from "react";
 import {Runner} from "./Runner";
 
 
-export class RunnerContainer extends Component {
-    render() {
-        return <Runner/>
-    }
+export function RunnerContainer() {
+    return <Runner/>
 }

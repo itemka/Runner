@@ -1,27 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import css from "./Runner.module.css";
-import {HeaderContainer} from "../Header/HeaderContainer";
 import {SessionWindow} from "../SessionWindow/SessionWindow";
 import {Info} from "../Info/Info";
-import {NothingIsThere} from "../NothingIsThere/NothingIsThere";
-import {FormEdit} from "../FormEdit/FormEdit";
+import {Jogs} from "../Jogs/Jogs";
+import {Header} from "../Header/Header";
 
 export const Runner = () => {
+    let pages = {jogs: `jogs`, info: `info`, contactUs: `contactUs`};
+    let [section, setSection] = useState(pages.jogs);
+    let [filter, setFilter] = useState(false);
+    let [add, setAdd] = useState(false);
+    let activateSection = sectionName => setSection(sectionName);
+    let activateFilter = bool => setFilter(bool);
+    let activateAdd = bool => setAdd(bool);
+
+    let isAuth = false;
     return (
         <div className={css.Runner}>
-            <HeaderContainer/>
-            {/*<div className={css.underHeader}>*/}
-            {/*    <SessionWindow/>*/}
-            {/*</div>*/}
-            <div className={css.underHeader}>
-                <FormEdit/>
-            </div>
-            {/*<div className={css.underHeader}>*/}
-            {/*    <Info/>*/}
-            {/*</div>*/}
-            {/*<div className={css.underHeaderSad}>*/}
-            {/*    <NothingIsThere/>*/}
-            {/*</div>*/}
+            <Header section={section} activateSection={activateSection} pages={pages}
+                    filter={filter} activateFilter={activateFilter} isAuth={isAuth}/>
+            {!isAuth
+                ? <div className={css.underHeader}><SessionWindow/></div>
+                : <>
+                    {section === pages.jogs ? <Jogs filter={filter} add={add} activateAdd={activateAdd}/> : null}
+                    {section === pages.info && <div className={css.underHeader}><Info/></div>}
+                </>
+            }
         </div>
     )
 };
