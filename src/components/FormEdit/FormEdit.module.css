@@ -1,0 +1,65 @@
+.FormEdit {
+    width: 503px;
+    height: 379px;
+    border-radius: 44px;
+    background-color: #7ed321;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+}
+
+.inputTitle {
+    width: 74px;
+    margin-right: 15px;
+    height: 19px;
+    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.input {
+    width: 236px;
+    height: 31px;
+    border-radius: 7px;
+    border: solid 1px #979797;
+    background-color: #ffffff;
+
+}
+
+.cancel {
+    position: absolute;
+    top: 27px;
+    right: 27px;
+    width: 27px;
+    height: 27px;
+    object-fit: contain;
+}
+
+
+.button {
+    width: 320px;
+    height: 42px;
+    border-radius: 25px;
+    border: solid 2px #ffffff;
+    background-color: #7ed321;
+    color: #ffffff;
+}
+
+.Save {
+    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    width: 71px;
+    height: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+}
+

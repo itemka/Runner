@@ -1,0 +1,69 @@
+.header {
+    /*width: 1440px;*/
+    height: 116px;
+    background-color: #7ed321;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin: 30px 37px;
+    width: 147px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.nav {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.afterNav {
+    padding: 2px;
+    border-bottom: 2px solid #ffffff;
+}
+
+.menuHeaderFont {
+    height: 16px;
+    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-decoration: none;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.JOGS {
+    width: 40px;
+}
+
+.INFO {
+    width: 35px;
+}
+
+.CONTACT-US {
+    width: 96px;
+}
+
+.filter {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.filter_active {
+    width: 39px;
+    height: 39px;
+    object-fit: contain;
+}

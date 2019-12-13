@@ -1,0 +1,19 @@
+.Runner {
+}
+
+.underHeader {
+    height: 100vh;
+    /*background-color: green;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.underHeaderSad {
+    /*background-color: #3a6b80;*/
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
