@@ -3,7 +3,7 @@ import './App.css';
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./Redux/Store";
-import {RunnerContainer} from "./components/Runner/RunnerContainer";
+import RunnerContainer from "./components/Runner/RunnerContainer";
 
 const App = () => {
     return (

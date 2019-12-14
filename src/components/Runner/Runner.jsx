@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import css from "./Runner.module.css";
 import {SessionWindow} from "../SessionWindow/SessionWindow";
 import {Info} from "../Info/Info";
-import {Jogs} from "../Jogs/Jogs";
+import Jogs from "../Jogs/Jogs";
 import {MobileMenu} from "../Jogs/MobileMenu/MobileMenu";
 import {Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "../Header/HeaderContainer";
+import SessionWindowContainer from "../SessionWindow/SessionWindowContainer";
 
-export const Runner = () => {
+export const Runner = ({isAuth}) => {
     let [filter, setFilter] = useState(false);
     let [add, setAdd] = useState(false);
     let [mobileMenu, setMobileMenu] = useState(false);
@@ -16,7 +17,6 @@ export const Runner = () => {
     let activateAdd = bool => setAdd(bool);
     let activateMobileMenu = bool => setMobileMenu(bool);
 
-    let isAuth = true;
     return (
         <div className={css.Runner}>
             {!mobileMenu
@@ -24,7 +24,7 @@ export const Runner = () => {
                     <HeaderContainer filter={filter} isAuth={isAuth} activateFilter={activateFilter}
                                      activateMobileMenu={activateMobileMenu}/>
                     {!isAuth
-                        ? <div className={css.underHeader}><SessionWindow/></div>
+                        ? <div className={css.underHeader}><SessionWindowContainer/></div>
                         : <Switch>
                             <Route exact path='/' render={() => <Redirect to={'/jogs'}/>}/>
                             <Route path='/jogs'
