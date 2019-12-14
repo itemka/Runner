@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import {Runner} from "./Runner";
 import {connect} from "react-redux";
-import {CheckAutorisationAtFirstBoot} from "../../Redux/AuthReducer";
+import {CheckAuthorisationAtFirstBoot} from "../../Redux/Reducer";
+import {getIsAuth} from "../../Redux/Selectors";
 
 class RunnerContainer extends Component {
     componentDidMount() {
-        this.props.CheckAutorisationAtFirstBoot();
+        this.props.CheckAuthorisationAtFirstBoot();
     }
 
     render() {
@@ -13,7 +14,5 @@ class RunnerContainer extends Component {
     }
 }
 
-let mapStateToProps = state => ({
-    isAuth: state.authState.isAuth
-});
-export default connect(mapStateToProps, {CheckAutorisationAtFirstBoot})(RunnerContainer)
+let mapStateToProps = state => ({isAuth: getIsAuth(state)});
+export default connect(mapStateToProps, {CheckAuthorisationAtFirstBoot})(RunnerContainer)

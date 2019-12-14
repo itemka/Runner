@@ -32,7 +32,7 @@ export const Runner = ({isAuth}) => {
                             <Route path='/info' render={() => <Info/>}/>
                             <Route path='/contactUs' render={() => <></>}/>
                             <Route path='/session'
-                                   render={() => <div className={css.underHeader}><SessionWindow/></div>}/>
+                                   render={() => <div className={css.underHeader}><SessionWindowContainer/></div>}/>
                             <Route path='*' render={() => <Redirect to={'/'}/>}/>
                         </Switch>
                     }

@@ -3,16 +3,17 @@ import css from "./Jogs.module.css";
 import {Filter} from "./Filter/Filter";
 import {Jog} from "./Jog/Jog";
 import addImg from "../../Files/Images/add.svg";
-import {EditForm} from "./FormEdit/EditForm";
 import {NothingIsThere} from "./NothingIsThere/NothingIsThere";
 import {connect} from "react-redux";
+import EditFormContainer from "./FormEdit/EditFormContainer";
+import {getCurrentUserJogs} from "../../Redux/Selectors";
 
 const Jogs = ({filter, add, activateAdd, currentUserJogs}) => {
     let jogs = currentUserJogs.map(item => <Jog key={item.id} item={item}/>);
     return (
         <>
             <div>{add
-                ? <div className={css.EditForm}><EditForm activateAdd={activateAdd}/></div>
+                ? <div className={css.EditForm}><EditFormContainer activateAdd={activateAdd}/></div>
                 : <>
                     <div>{filter && <Filter/>}</div>
                     {currentUserJogs.length !== 0
@@ -29,7 +30,6 @@ const Jogs = ({filter, add, activateAdd, currentUserJogs}) => {
         </>
     )
 };
-let mapStateToProps = state => ({
-    currentUserJogs: state.authState.currentUserJogs
-});
+
+let mapStateToProps = state => ({currentUserJogs: getCurrentUserJogs(state)});
 export default connect(mapStateToProps, {})(Jogs)

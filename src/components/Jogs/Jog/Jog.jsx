@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./Jog.module.css";
 import jogImg from "./../../../Files/Images/jog.svg";
-import {formatDate} from "../../../Redux/AuthReducer";
+import {formatDate} from "../../../utils/changeDate";
 
 export const Jog = ({item}) => {
     let date = formatDate(item.date);
