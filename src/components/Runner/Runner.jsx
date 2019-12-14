@@ -3,28 +3,41 @@ import css from "./Runner.module.css";
 import {SessionWindow} from "../SessionWindow/SessionWindow";
 import {Info} from "../Info/Info";
 import {Jogs} from "../Jogs/Jogs";
-import {Header} from "../Header/Header";
+import {MobileMenu} from "../Jogs/MobileMenu/MobileMenu";
+import {Redirect, Route, Switch} from "react-router-dom";
+import HeaderContainer from "../Header/HeaderContainer";
 
 export const Runner = () => {
-    let pages = {jogs: `jogs`, info: `info`, contactUs: `contactUs`};
-    let [section, setSection] = useState(pages.jogs);
     let [filter, setFilter] = useState(false);
     let [add, setAdd] = useState(false);
-    let activateSection = sectionName => setSection(sectionName);
+    let [mobileMenu, setMobileMenu] = useState(false);
+
     let activateFilter = bool => setFilter(bool);
     let activateAdd = bool => setAdd(bool);
+    let activateMobileMenu = bool => setMobileMenu(bool);
 
-    let isAuth = false;
+    let isAuth = true;
     return (
         <div className={css.Runner}>
-            <Header section={section} activateSection={activateSection} pages={pages}
-                    filter={filter} activateFilter={activateFilter} isAuth={isAuth}/>
-            {!isAuth
-                ? <div className={css.underHeader}><SessionWindow/></div>
-                : <>
-                    {section === pages.jogs ? <Jogs filter={filter} add={add} activateAdd={activateAdd}/> : null}
-                    {section === pages.info && <div className={css.underHeader}><Info/></div>}
+            {!mobileMenu
+                ? <>
+                    <HeaderContainer filter={filter} isAuth={isAuth} activateFilter={activateFilter}
+                                     activateMobileMenu={activateMobileMenu}/>
+                    {!isAuth
+                        ? <div className={css.underHeader}><SessionWindow/></div>
+                        : <Switch>
+                            <Route exact path='/' render={() => <Redirect to={'/jogs'}/>}/>
+                            <Route path='/jogs'
+                                   render={() => <Jogs filter={filter} add={add} activateAdd={activateAdd}/>}/>
+                            <Route path='/info' render={() => <Info/>}/>
+                            <Route path='/contactUs' render={() => <></>}/>
+                            <Route path='/session'
+                                   render={() => <div className={css.underHeader}><SessionWindow/></div>}/>
+                            <Route path='*' render={() => <Redirect to={'/'}/>}/>
+                        </Switch>
+                    }
                 </>
+                : <MobileMenu activateMobileMenu={activateMobileMenu}/>
             }
         </div>
     )

@@ -1,9 +1,9 @@
 .jog {
-
-    /*background-color: goldenrod;*/
+    width: 100%;
     margin-top: 60px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
 
@@ -22,6 +22,7 @@
 
 .dataItem {
     margin: 5px 0;
+    font-size: 14px;
 }
 
 .thick {
@@ -30,4 +31,12 @@
 
 .dataItemColor {
     color: #818181;;
+}
+
+@media screen and (max-width: 420px) {
+    .jog {
+        height: 188px;
+        margin-top: 0;
+        border-bottom: 2px solid #eaeaea;
+    }
 }

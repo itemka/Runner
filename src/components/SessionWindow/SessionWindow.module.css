@@ -1,4 +1,5 @@
 .SessionWindow {
+    margin-top: 140px;
     width: 503px;
     height: 379px;
     border-radius: 44px;
@@ -8,6 +9,14 @@
     justify-content: space-evenly;
     justify-items: center;
     align-items: center;
+}
+
+.bearFace {
+    background-image: url('../../Files/Images/bear-face.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 160px;
+    height: 150px;
 }
 
 .button {
@@ -34,4 +43,35 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+}
+
+@media screen and (max-width: 420px) {
+    .SessionWindow {
+        width: 320px;
+        background-color: #ffffff;
+        border-radius: 0;
+        margin-top: 141px;
+    }
+
+    .bearFace {
+        width: 160px;
+        height: 150px;
+        background-image: url('../../Files/Images/Mobile/bearFaceMob/bearFace.png');
+    }
+
+    .button {
+        margin-top: 103px;
+        width: 151px;
+        height: 60px;
+        border-radius: 36px;
+        border: solid 3px #e990f9;
+        background-color: #ffffff;
+        color: #e990f9;
+    }
+
+    .buttonText {
+        width: 83px;
+        height: 21px;
+        font-size: 18px;
+    }
 }

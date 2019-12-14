@@ -7,7 +7,7 @@ import {EditForm} from "./FormEdit/EditForm";
 import {NothingIsThere} from "./NothingIsThere/NothingIsThere";
 
 export const Jogs = ({filter, add, activateAdd}) => {
-    let jogsArray = [1, 1, 1];
+    let jogsArray = [1, 1, 1, 1];
     let jogs = jogsArray.map(item => <Jog key={item}/>);
     return (
         <>
@@ -21,7 +21,7 @@ export const Jogs = ({filter, add, activateAdd}) => {
                             <img onClick={() => activateAdd(true)} className={css.addImg} src={addImg} alt=""/>
                         </>
                         : <>
-                            <div className={css.EditForm}><NothingIsThere activateAdd={activateAdd}/></div>
+                            <div className={css.nothingIsThere}><NothingIsThere activateAdd={activateAdd}/></div>
                         </>
                     }
                 </>

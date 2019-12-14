@@ -58,7 +58,6 @@
     right: 27px;
     width: 27px;
     height: 27px;
-    object-fit: contain;
 }
 
 
@@ -84,3 +83,42 @@
     text-align: center;
 }
 
+@media screen and (max-width: 420px) {
+    .EditForm {
+        width: 307px;
+        height: 380px;
+        border-radius: 25px;
+    }
+
+    .saveForm {
+        margin-top: 45px;
+    }
+
+    .cancel {
+        top: 21px;
+        right: 21px;
+        width: 18px;
+        height: 19px;
+    }
+
+    .inputElements {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .inputTitle {
+        font-size: 13px;
+    }
+
+    .button {
+        width: 237px;
+    }
+}

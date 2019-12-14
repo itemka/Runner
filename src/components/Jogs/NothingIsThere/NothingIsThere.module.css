@@ -1,20 +1,28 @@
 .NothingIsThere {
-    height: 100%;
+    /*background-color: #333333;*/
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
-    color: #b0b0b0;
+    justify-content: flex-start;
 }
 
 .smileWithText {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #979797;
+}
+
+.smile {
+    width: 151px;
+    height: 150px;
+    background-image: url('../../../Files/Images/SedSmile/sad.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .nothingText {
-    margin-top: 50px;
+    margin-top: 47px;
     font-family: 'SFUIText', Arial, Helvetica, sans-serif;
     width: 182px;
     height: 58px;
@@ -28,11 +36,12 @@
 }
 
 .button {
+    margin-top: 141px;
     width: 249px;
     height: 60px;
     border-radius: 36px;
     border: solid 3px #e990f9;
-
+    background-color: #ffffff;
     font-size: 18px;
     font-weight: bold;
     font-stretch: normal;
@@ -40,4 +49,34 @@
     line-height: normal;
     letter-spacing: normal;
     color: #e990f9;
+}
+
+@media screen and (max-width: 420px) {
+    .NothingIsThere {
+        display: block;
+        margin-top: 50pt;
+    }
+
+    .smile {
+        width: 86pt;
+        height: 85pt;
+        background-image: url('../../../Files/Images/SedSmile/sad.svg');
+    }
+
+    .nothingText {
+        margin-top: 25pt;
+        width: 182pt;
+        height: 58pt;
+        font-size: 24pt;
+        line-height: 29pt;
+    }
+
+    .button {
+        margin-top: 60pt;
+        width: 251pt;
+        height: 60pt;
+        border-radius: 36pt;
+        border: solid 3pt #e990f9;
+        font-size: 18pt;
+    }
 }
