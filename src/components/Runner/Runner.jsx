@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import css from "./Runner.module.css";
-import {SessionWindow} from "../SessionWindow/SessionWindow";
 import {Info} from "../Info/Info";
 import Jogs from "../Jogs/Jogs";
 import {MobileMenu} from "../Jogs/MobileMenu/MobileMenu";
