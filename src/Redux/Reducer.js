@@ -1,4 +1,4 @@
-import {authAPI, GetToken} from "../API/API";
+import {API, GetToken} from "../API/API";
 import {changeDateToLongFormat} from "../utils/changeDate";
 import {getTokenFromLocalStorage, saveTokenToLocalStorage} from "../utils/LocalStorage";
 
@@ -27,7 +27,7 @@ const GetDataAfterCheckToken = token => async dispatch => {
     try {
         dispatch(setIsAuthAC(true));
         dispatch(setLoadingAC(false)); // turn on preloader
-        let currentUser = await authAPI.getCurrentUser(token);
+        let currentUser = await API.getCurrentUser(token);
         await dispatch(setCurrentUserAC(currentUser));
         await dispatch(GetRunnerData(token, currentUser.id));
         dispatch(setLoadingAC(true)); // turn off preloader
@@ -56,7 +56,7 @@ export const AuthorizationCheckThunk = (firstBoot = false) => async dispatch => 
 
 const GetRunnerData = (token, currentUserId) => async dispatch => {
     try {
-        let data = await authAPI.getDataCurrentUser(token);
+        let data = await API.getDataCurrentUser(token);
         let runnerData = await data.reverse().filter(item => item.user_id === currentUserId);
         let testData = await runnerData.filter(item => item.id >= 1450);
         console.log(`runnerData`, runnerData);
@@ -75,7 +75,7 @@ export const AddJogThunk = (distance = 0, time = 0, date = '') => async (dispatc
         let changeDate = date !== '' ? changeDateToLongFormat(date) : new Date();
 
         let newJog = {date: `${changeDate}`, time: time, distance: distance};
-        let response = await authAPI.addNewJog(getTokenFromLocalStorage(), newJog);
+        let response = await API.addNewJog(getTokenFromLocalStorage(), newJog);
 
         let newItemOfJog = {
             id: response.id,
@@ -137,7 +137,7 @@ export const UpdateJogThunk = (distance = 0, time = 0, date = '', jogId) => asyn
             jog_id: jogId,
             user_id: getState().partOfTheState.currentUser.id,
         };
-        let response = await authAPI.updateJog(getTokenFromLocalStorage(), newJog);
+        let response = await API.updateJog(getTokenFromLocalStorage(), newJog);
 
         let updateItemOfJog = {
             id: response.id,
