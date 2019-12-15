@@ -11,3 +11,7 @@ export const formatDate = el => {
 
     return `${dd}.${mm}.${yyyy}`;
 };
+
+export const changeDateToLongFormat = date => {
+    return new Date(`${date}`.replace(/(\d+)\.(\d+)\.(\d+)/, "$3-$2-$1"));
+};

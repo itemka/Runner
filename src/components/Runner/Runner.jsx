@@ -1,21 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import css from "./Runner.module.css";
 import {Info} from "../Info/Info";
-import Jogs from "../Jogs/Jogs";
 import {MobileMenu} from "../Jogs/MobileMenu/MobileMenu";
 import {Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "../Header/HeaderContainer";
 import SessionWindowContainer from "../SessionWindow/SessionWindowContainer";
+import JogsContainer from "../Jogs/JogsContainer";
 
-export const Runner = ({isAuth}) => {
-    let [filter, setFilter] = useState(false);
-    let [add, setAdd] = useState(false);
-    let [mobileMenu, setMobileMenu] = useState(false);
-
-    let activateFilter = bool => setFilter(bool);
-    let activateAdd = bool => setAdd(bool);
-    let activateMobileMenu = bool => setMobileMenu(bool);
-
+export const Runner = ({isAuth, filter, turnOnEditForm, mobileMenu, activateFilter, activateEditForm, activateMobileMenu}) => {
     return (
         <div className={css.Runner}>
             {!mobileMenu
@@ -27,7 +19,8 @@ export const Runner = ({isAuth}) => {
                         : <Switch>
                             <Route exact path='/' render={() => <Redirect to={'/jogs'}/>}/>
                             <Route path='/jogs'
-                                   render={() => <Jogs filter={filter} add={add} activateAdd={activateAdd}/>}/>
+                                   render={() => <JogsContainer filter={filter} turnOnEditForm={turnOnEditForm}
+                                                                activateEditForm={activateEditForm}/>}/>
                             <Route path='/info' render={() => <Info/>}/>
                             <Route path='/contactUs' render={() => <></>}/>
                             <Route path='/session'

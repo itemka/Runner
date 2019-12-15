@@ -1,3 +1,14 @@
+.EditFormContainer {
+    width: 100%;
+    height: 80%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
 .EditForm {
     width: 503px;
     height: 379px;

@@ -1,12 +1,10 @@
 import React from "react";
 import css from "./Jog.module.css";
 import jogImg from "./../../../Files/Images/jog.svg";
-import {formatDate} from "../../../utils/changeDate";
 
-export const Jog = ({item}) => {
-    let date = formatDate(item.date);
+export const Jog = ({item, date, updateJog}) => {
     return (
-        <div className={css.jog}>
+        <div className={css.jog} onClick={() => updateJog()}>
             <img src={jogImg} className={css.jogImg} alt="jog"/>
             <div className={css.jogData}>
                 <span className={css.dataItem}><span className={css.dataItemColor}>{date}</span></span>

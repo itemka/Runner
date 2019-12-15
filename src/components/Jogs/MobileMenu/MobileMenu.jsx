@@ -7,7 +7,9 @@ export const MobileMenu = ({activateMobileMenu}) => {
     return (
         <div className={css.mobileMenu}>
             <span className={css.logo}/>
-            <NavLink to onClick={() => activateMobileMenu(false)}><img src={close} alt="cancel" className={css.cancel}/></NavLink>
+            <NavLink to={''} onClick={() => activateMobileMenu(false)}>
+                <img src={close} alt="cancel" className={css.cancel}/>
+            </NavLink>
             <span className={css.mobileNav}>
                     <NavLink to={`/jogs`}
                              className={`${css.menuHeaderFont}`}

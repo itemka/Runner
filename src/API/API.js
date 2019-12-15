@@ -29,4 +29,5 @@ export const authAPI = {
     getCurrentUser: (token) => requestWrapper(token).get(`auth/user`).then(response => response.data.response),
     getDataCurrentUser: (token) => requestWrapper(token).get(`data/sync?count=4`).then(response => response.data.response.jogs),
     addNewJog: (token, jog) => requestWrapper(token).post(`data/jog`, gs.stringify(jog)).then(response => response.data.response),
+    updateJog: (token, newJog) => requestWrapper(token).put(`data/jog`, gs.stringify(newJog)).then(response => response.data.response)
 };

@@ -1,0 +1,2 @@
+export const saveTokenToLocalStorage = token => localStorage.setItem("access-token", JSON.stringify(token));
+export const getTokenFromLocalStorage = () => JSON.parse(localStorage.getItem("access-token"));

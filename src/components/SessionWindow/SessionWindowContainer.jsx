@@ -3,10 +3,8 @@ import {SessionWindow} from "./SessionWindow";
 import {connect} from "react-redux";
 import {AuthorizationCheckThunk} from "../../Redux/Reducer";
 
-class SessionWindowContainer extends React.Component {
-    render() {
-        return <SessionWindow authorizationCheck={this.props.AuthorizationCheckThunk}/>
-    }
-}
+const SessionWindowContainer = ({AuthorizationCheckThunk}) => {
+    return <SessionWindow authorizationCheck={AuthorizationCheckThunk}/>
+};
 
 export default connect(null, {AuthorizationCheckThunk})(SessionWindowContainer)

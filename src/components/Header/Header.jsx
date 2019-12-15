@@ -13,7 +13,8 @@ export const Header = ({filter, activateFilter, isAuth, activateMobileMenu, loca
     return (
         <div className={css.header}>
             <span className={css.logo}/>
-            {isAuth && <span className={css.nav}>
+            {isAuth &&
+            <span className={css.nav}>
                 <span className={css.desktopMenu}>
                     <NavLink to={`jogs`} className={`${JOGS} ${css.menuHeaderFont}`}>JOGS</NavLink>
                     <NavLink to={`info`} className={`${INFO} ${css.menuHeaderFont}`}>INFO</NavLink>

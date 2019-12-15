@@ -17,27 +17,6 @@
     bottom: 40px;
 }
 
-.EditForm {
-    width: 100%;
-    height: 80%;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-}
-
-.nothingIsThere {
-    width: 100%;
-    height: 80%;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 @media screen and (max-width: 420px) {
     .addImg {
         width: 47px;
