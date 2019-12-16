@@ -8,6 +8,7 @@ export const GetToken = async (hello) => {
     return response.data.response.access_token;
 };
 
+// wrapper with token
 const requestWrapper = (token = null) => {
     const defaultOptions = {
 
@@ -31,10 +32,12 @@ export const API = {
     addNewJog: (token, jog) => requestWrapper(token).post(`data/jog`, gs.stringify(jog)).then(response => response.data.response),
     updateJog: (token, newJog) => requestWrapper(token).put(`data/jog`, gs.stringify(newJog)).then(response => response.data.response),
 
+    // for testing
     deleteJog: (token, jogId, userId) => requestWrapper(token).delete(`data/jog?jog_id=${jogId}&user_id=${userId}`),
     sendFeedback: (token, body) => requestWrapper(token).post(`feedback/send`, gs.stringify(body)),
 };
 
+// for testing
 export const apiTest = {
     get: (url, options = {}) => axios.get(baseURL + `test/echo`, {...options}),
     post: (url, data, options = {}) => axios.post(baseURL + `test/echo`, data, {...options}),

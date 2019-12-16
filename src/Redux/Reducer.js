@@ -164,6 +164,7 @@ export const UpdateJogThunk = (distance = 0, time = 0, date = '', jogId) => asyn
             time: time,
             date: changeDate.getTime() / 1000,
         };
+
         await dispatch(updateItemOfJogs(updateItemOfJog));
         await dispatch(SetCurrentPageThunk(getState().partOfTheState.currentPage)); // set array to render
 
