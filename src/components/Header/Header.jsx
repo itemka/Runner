@@ -5,8 +5,7 @@ import filterActiveImg from "./../../Files/Images/Filter/filter-activePNG/filter
 import {NavLink} from "react-router-dom";
 import cn from 'classnames';
 
-export const Header = ({filter, activateFilter, isAuth, activateMobileMenu, location}) => {
-    let newPath = location.pathname.replace(`/`, ``);
+export const Header = ({filter, activateFilter, isAuth, activateMobileMenu, newPath}) => {
     let JOGS = newPath === `jogs` ? `${css.afterNav}` : ``;
     let INFO = newPath === `info` ? `${css.afterNav}` : ``;
     let CONTACT_US = newPath === `contactus` ? `${css.afterNav}` : ``;

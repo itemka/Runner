@@ -9,8 +9,13 @@ const SET_CURRENT_USER_JOGS = `RUNNER/SET_CURRENT_USER_JOGS`;
 const ADD_NEW_JOG_DATA = `RUNNER/ADD_NEW_JOG_DATA`;
 const TAKE_ERROR = `RUNNER/TAKE_ERROR`;
 const SET_LOADING = `RUNNER/IS_LOADING`;
-const SET_FILTER_JOGS = `RUNNER/SET_FILTER_JOGS`;
 const UPDATE_ITEM_OF_JOGS = `RUNNER/UPDATE_ITEM_OF_JOGS`;
+const SET_CURRENT_PAGE = `RUNNER/SET_CURRENT_PAGE`;
+const SET_JOGS_TO_RENDER = `RUNNER/SET_JOGS_TO_RENDER`;
+const SET_PAGES_COUNTER_ARRAY = `RUNNER/SET_PAGES_COUNTER_ARRAY`;
+const SET_JOGS_TO_RENDER_ON_SCREEN = `RUNNER/SET_JOGS_TO_RENDER_ON_SCREEN`;
+const SET_PORTION_NUMBER_FOR_PAGINATOR = `RUNNER/SET_PORTION_NUMBER_FOR_PAGINATOR`;
+const SET_CURRENT_NUMBER_FOR_PAGINATOR = `RUNNER/SET_CURRENT_NUMBER_FOR_PAGINATOR`;
 
 
 export const setIsAuthAC = isAuth => ({type: SET_IS_AUTH, partOfObject: {isAuth}});
@@ -19,8 +24,18 @@ export const setCurrentUserJogsAC = jogs => ({type: SET_CURRENT_USER_JOGS, jogs}
 export const addNewJogDataAC = newJogData => ({type: ADD_NEW_JOG_DATA, newJogData});
 export const takeErrorAC = error => ({type: TAKE_ERROR, partOfObject: {error}});
 export const setLoadingAC = isLoading => ({type: SET_LOADING, partOfObject: {loading: isLoading}});
-export const setFilterJogsAC = filterJogs => ({type: SET_FILTER_JOGS, filterJogs});
 export const updateItemOfJogs = updateJog => ({type: UPDATE_ITEM_OF_JOGS, updateJog});
+export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, partOfObject: {currentPage}});
+export const setJogsToRender = jogsToRender => ({type: SET_JOGS_TO_RENDER, jogsToRender});
+export const setPagesCounterArray = pagesCounterArray => ({type: SET_PAGES_COUNTER_ARRAY, pagesCounterArray});
+export const setJogsToRenderOnScreen = jogsToRenderOnScreen => ({
+    type: SET_JOGS_TO_RENDER_ON_SCREEN,
+    jogsToRenderOnScreen
+});
+export const setCurrentPortionForPaginator = currentPortionForPaginator => ({
+    type: SET_CURRENT_NUMBER_FOR_PAGINATOR,
+    partOfObject: {currentPortionForPaginator}
+});
 
 
 const GetDataAfterCheckToken = token => async dispatch => {
@@ -58,11 +73,10 @@ const GetRunnerData = (token, currentUserId) => async dispatch => {
     try {
         let data = await API.getDataCurrentUser(token);
         let runnerData = await data.reverse().filter(item => item.user_id === currentUserId);
-        let testData = await runnerData.filter(item => item.id >= 1450);
-        console.log(`runnerData`, runnerData);
-        console.log(`testData`, currentUserId, testData);
-        await dispatch(setCurrentUserJogsAC(testData));
-        await dispatch(setFilterJogsAC(testData));
+        await dispatch(setCurrentUserJogsAC(runnerData));
+        await dispatch(SetJogsToRender(runnerData));
+        console.log(`runnerData`, runnerData)
+        await dispatch(SetCurrentPageThunk(1, runnerData));
     } catch (err) {
         dispatch(takeErrorAC(err))
     }
@@ -84,12 +98,17 @@ export const AddJogThunk = (distance = 0, time = 0, date = '') => async (dispatc
             time: time,
             date: changeDate.getTime() / 1000,
         };
+
         await dispatch(addNewJogDataAC(newItemOfJog));
+        await dispatch(SetCurrentPageThunk(1)); // set array to render
+        await dispatch(SetPortionNumberForPaginator(1));
+
         dispatch(setLoadingAC(true)); // turn off preloader
     } catch (err) {
         dispatch(takeErrorAC(err))
     }
 };
+
 
 export const FilterDataOfJogs = (leftBorder = '', rightBorder = '') => async (dispatch, getState) => {
     try {
@@ -116,9 +135,10 @@ export const FilterDataOfJogs = (leftBorder = '', rightBorder = '') => async (di
             }
             if (changLeftBorder === '' && changRightBorder === '') return true;
         });
+        console.log(filterData);
+        await dispatch(SetJogsToRender(filterData));
+        await dispatch(SetCurrentPageThunk(1, filterData));
 
-        // set filter array
-        await dispatch(setFilterJogsAC(filterData));
         dispatch(setLoadingAC(true)); // turn of preloader
     } catch (err) {
         dispatch(takeErrorAC(err))
@@ -147,20 +167,69 @@ export const UpdateJogThunk = (distance = 0, time = 0, date = '', jogId) => asyn
             date: changeDate.getTime() / 1000,
         };
         await dispatch(updateItemOfJogs(updateItemOfJog));
+        await dispatch(SetCurrentPageThunk(getState().partOfTheState.currentPage)); // set array to render
+
         dispatch(setLoadingAC(true)); // turn off preloader
     } catch (err) {
         dispatch(takeErrorAC(err))
     }
 };
 
+export const SetJogsToRender = arrayToRender => async (dispatch, getState) => {
+    try {
+        // calculate count of pages
+        let pagesCounter = await Math.ceil(arrayToRender.length / getState().partOfTheState.pageSize);
+        let pagesCounterArray = [];
+        for (let i = 1; i <= pagesCounter; i++) pagesCounterArray.push(i);
+        await dispatch(setPagesCounterArray(pagesCounterArray));
+        await dispatch(setJogsToRender(arrayToRender));
+    } catch (err) {
+        dispatch(takeErrorAC(err))
+    }
+};
+
+export const SetCurrentPageThunk = (currentPage, jogsToRender = null) => async (dispatch, getState) => {
+    try {
+        await dispatch(setCurrentPage(currentPage));
+        let pageSize = getState().partOfTheState.pageSize;
+        let jogs = jogsToRender === null ? getState().partOfTheState.jogsToRender : jogsToRender;
+        console.log(`123`, getState().partOfTheState.jogsToRender)
+        let arrayToRender = await jogs.filter((item, index) => {
+            if (index >= (currentPage - 1) * pageSize && index <= currentPage * pageSize - 1) {
+                console.log(`index`, index);
+                return true;
+            } else return false;
+        });
+
+        await dispatch(setJogsToRenderOnScreen(arrayToRender));
+    } catch (err) {
+        dispatch(takeErrorAC(err))
+    }
+};
+
+export const SetPortionNumberForPaginator = currentPortion => async (dispatch) => {
+    try {
+        await dispatch(setCurrentPortionForPaginator(currentPortion));
+    } catch (err) {
+        dispatch(takeErrorAC(err))
+    }
+};
 
 let initialState = {
     isAuth: false,
     currentUser: null,
     currentUserJogs: [],
-    jogsForFilter: [],
     error: null,
     loading: true,
+
+    jogsToRender: [],
+    jogsToRenderOnScreen: [],
+
+    totalUsersCount: 0,
+    pageSize: 5,
+    currentPage: 1,
+    pagesCounterArray: [],
+    currentPortionForPaginator: 1
 };
 
 const Reducer = (state = initialState, action) => {
@@ -168,6 +237,9 @@ const Reducer = (state = initialState, action) => {
         case SET_IS_AUTH:
         case TAKE_ERROR:
         case SET_LOADING:
+        case SET_CURRENT_PAGE:
+        case SET_PORTION_NUMBER_FOR_PAGINATOR:
+        case SET_CURRENT_NUMBER_FOR_PAGINATOR:
             return {
                 ...state,
                 ...action.partOfObject,
@@ -180,17 +252,14 @@ const Reducer = (state = initialState, action) => {
         case SET_CURRENT_USER_JOGS:
             return {
                 ...state,
-                currentUserJogs: [...action.jogs]
+                currentUserJogs: [...action.jogs],
+                totalUsersCount: action.jogs.length
             };
         case ADD_NEW_JOG_DATA:
             return {
                 ...state,
-                currentUserJogs: [action.newJogData, ...state.currentUserJogs]
-            };
-        case SET_FILTER_JOGS:
-            return {
-                ...state,
-                jogsForFilter: [...action.filterJogs]
+                currentUserJogs: [action.newJogData, ...state.currentUserJogs],
+                jogsToRender: [action.newJogData, ...state.jogsToRender]
             };
         case UPDATE_ITEM_OF_JOGS:
             return {
@@ -198,7 +267,26 @@ const Reducer = (state = initialState, action) => {
                 currentUserJogs: state.currentUserJogs.map(item => {
                     if (item.id === action.updateJog.id) return {...action.updateJog};
                     else return item;
+                }),
+                jogsToRender: state.jogsToRender.map(item => {
+                    if (item.id === action.updateJog.id) return {...action.updateJog};
+                    else return item;
                 })
+            };
+        case SET_JOGS_TO_RENDER:
+            return {
+                ...state,
+                jogsToRender: [...action.jogsToRender]
+            };
+        case SET_PAGES_COUNTER_ARRAY:
+            return {
+                ...state,
+                pagesCounterArray: [...action.pagesCounterArray]
+            };
+        case SET_JOGS_TO_RENDER_ON_SCREEN:
+            return {
+                ...state,
+                jogsToRenderOnScreen: [...action.jogsToRenderOnScreen]
             };
         default: {
             return state;

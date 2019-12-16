@@ -1,8 +1,8 @@
 import React from "react";
 import {Runner} from "./Runner";
 import {connect} from "react-redux";
-import {AuthorizationCheckThunk} from "../../Redux/Reducer";
-import {getIsAuth} from "../../Redux/Selectors";
+import {AuthorizationCheckThunk, SetCurrentPageThunk, SetJogsToRender} from "../../Redux/Reducer";
+import {getCurrentUserJogs, getIsAuth} from "../../Redux/Selectors";
 
 class RunnerContainer extends React.Component {
     componentDidMount() {
@@ -15,7 +15,11 @@ class RunnerContainer extends React.Component {
         mobileMenu: false,
     };
 
-    activateFilter = bool => this.setState({filter: bool});
+    activateFilter = async bool => {
+        this.setState({filter: bool});
+        await this.props.SetJogsToRender(this.props.currentUserJogs);
+        await this.props.SetCurrentPageThunk(1, this.props.currentUserJogs);
+    };
     activateEditForm = bool => this.setState({turnOnEditForm: bool});
     activateMobileMenu = bool => this.setState({mobileMenu: bool});
 
@@ -28,5 +32,5 @@ class RunnerContainer extends React.Component {
     }
 }
 
-let mapStateToProps = state => ({isAuth: getIsAuth(state)});
-export default connect(mapStateToProps, {AuthorizationCheckThunk})(RunnerContainer)
+let mapStateToProps = state => ({isAuth: getIsAuth(state), currentUserJogs: getCurrentUserJogs(state)});
+export default connect(mapStateToProps, {AuthorizationCheckThunk, SetJogsToRender, SetCurrentPageThunk})(RunnerContainer)

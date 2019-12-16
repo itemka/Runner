@@ -2,15 +2,20 @@ import React, {useState} from "react";
 import {NothingIsThere} from "./NothingIsThere/NothingIsThere";
 import {connect} from "react-redux";
 import EditFormContainer from "./FormEdit/EditFormContainer";
-import {getCurrentUserJogs, getJogsForFilter, getLoading} from "../../Redux/Selectors";
+import {getJogsToRenderOnScreen, getLoading,} from "../../Redux/Selectors";
 import {FilterDataOfJogs} from "../../Redux/Reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {FilterContainer} from "./Filter/FilterContainer";
 import {Jogs} from "./Jogs";
+import Paginator from "../Paginator/Paginator";
 
-const JogsContainer = ({filter, turnOnEditForm, activateEditForm, currentUserJogs, FilterDataOfJogs, loading, jogsForFilter}) => {
+const JogsContainer = ({
+                           filter, turnOnEditForm, activateEditForm, jogsToRenderOnScreen,
+                           FilterDataOfJogs, loading,
+                       }) => {
     let [jogForUpdate, setJogForUpdate] = useState(null);
-    let jogsArray = filter ? jogsForFilter : currentUserJogs;
+    let jogsArray =  jogsToRenderOnScreen;
+
     return (
         <div>
             {turnOnEditForm
@@ -21,21 +26,21 @@ const JogsContainer = ({filter, turnOnEditForm, activateEditForm, currentUserJog
                     {filter && <FilterContainer FilterDataOfJogs={FilterDataOfJogs}/>}
 
                     {!loading ? <Preloader/>
-                        : currentUserJogs.length === 0
+                        : jogsToRenderOnScreen.length === 0
                             ? <NothingIsThere activateEditForm={activateEditForm}/>
-                            : <Jogs jogsArray={jogsArray}
-                                    activateEditForm={activateEditForm}
+                            : <Jogs jogsArray={jogsArray} activateEditForm={activateEditForm}
                                     setJogForUpdate={setJogForUpdate}/>
                     }
+
                 </>
             }
+            {jogsArray.length !== 0 && !turnOnEditForm && <Paginator/>}
         </div>
     )
 };
 
 let mapStateToProps = state => ({
-    currentUserJogs: getCurrentUserJogs(state),
+    jogsToRenderOnScreen: getJogsToRenderOnScreen(state),
     loading: getLoading(state),
-    jogsForFilter: getJogsForFilter(state)
 });
 export default connect(mapStateToProps, {FilterDataOfJogs})(JogsContainer)

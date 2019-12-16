@@ -1,0 +1,16 @@
+.buttons {
+    color: #ffffff;
+    border: 0;
+    width: 60px;
+    border-radius: 3px;
+    padding: 5px 15px 5px 15px;
+    margin: 10px 5px 0 5px;
+    text-align: center;
+    font-size: 1.1em;
+    background-color: rgba(66, 66, 66, 0.8);
+    cursor: pointer;
+}
+
+.buttonUserFollowed {
+    background-color: rgba(64, 177, 65, 0.69);
+}

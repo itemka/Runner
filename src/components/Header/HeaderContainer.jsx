@@ -1,16 +1,10 @@
-import React, {Component} from "react";
+import React from "react";
 import {Header} from "./Header";
 import {withRouter} from "react-router-dom";
 
-class HeaderContainer extends Component {
-    render() {
-        return (
-            <>
-                <Header {...this.props}/>
-            </>
-
-        )
-    }
-}
+const HeaderContainer = props => {
+    let newPath = props.location.pathname.replace(`/`, ``);
+    return <Header {...props} newPath={newPath}/>
+};
 
 export default withRouter(HeaderContainer);
