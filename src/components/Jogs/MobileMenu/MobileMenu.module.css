@@ -10,16 +10,10 @@
 }
 
 .menuHeaderFont {
+    composes: forFont from "./../../../App.css";
     margin-bottom: 35px;
     height: 16px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
     font-size: 25px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-decoration: none;
     cursor: pointer;
     color: rgba(41, 41, 41, 0.9);
 }

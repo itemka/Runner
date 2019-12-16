@@ -11,25 +11,17 @@
     color: #7ed321;
     width: 614px;
     height: 43px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    composes: forFont from "../../App.css";
     font-size: 36px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     margin-bottom: 15px;
 }
 
 .text {
     width: 614px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
     font-size: 14px;
+    composes: forFont from "../../App.css";
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 24px;
-    letter-spacing: normal;
     margin-bottom: 30px;
 }
 

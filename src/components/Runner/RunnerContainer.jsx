@@ -33,4 +33,8 @@ class RunnerContainer extends React.Component {
 }
 
 let mapStateToProps = state => ({isAuth: getIsAuth(state), currentUserJogs: getCurrentUserJogs(state)});
-export default connect(mapStateToProps, {AuthorizationCheckThunk, SetJogsToRender, SetCurrentPageThunk})(RunnerContainer)
+export default connect(mapStateToProps, {
+    AuthorizationCheckThunk,
+    SetJogsToRender,
+    SetCurrentPageThunk
+})(RunnerContainer)

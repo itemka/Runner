@@ -8,13 +8,9 @@
 }
 
 .filerText {
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    composes: forFont from "./../../../App.css";
     font-size: 13px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: center;
     color: #5d5d5d;
     margin-right: 16px;

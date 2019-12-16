@@ -156,6 +156,7 @@ export const UpdateJogThunk = (distance = 0, time = 0, date = '', jogId) => asyn
 
         await API.updateJog(getTokenFromLocalStorage(), newJog);
 
+        // new jog
         let updateItemOfJog = {
             id: jogId,
             user_id: getState().partOfTheState.currentUser.id,
@@ -186,7 +187,6 @@ export const SetJogsToRender = arrayToRender => async (dispatch, getState) => {
         for (let i = 1; i <= pagesCounter; i++) pagesCounterArray.push(i);
         await dispatch(setPagesCounterArray(pagesCounterArray));
         await dispatch(setJogsToRender(arrayToRender));
-        // alert(`SetJogsToRender end and ${arrayToRender.length}`)
     } catch (err) {
         dispatch(takeErrorAC(err))
     }

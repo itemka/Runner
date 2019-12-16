@@ -39,14 +39,8 @@
 .menuHeaderFont {
     margin-right: 45px;
     height: 16px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    composes: forFont from "../../App.css";
     font-size: 14px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-decoration: none;
     cursor: pointer;
     color: #ffffff;
 }
@@ -123,7 +117,8 @@
     .showFilter {
         display: none;
     }
-    .showFilterMobile{
+
+    .showFilterMobile {
         display: block;
     }
 }

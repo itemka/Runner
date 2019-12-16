@@ -9,7 +9,6 @@
 }
 
 .NothingIsThere {
-    /*background-color: #333333;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,15 +32,12 @@
 
 .nothingText {
     margin-top: 47px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    composes: forFont from "./../../../App.css";
     width: 182px;
     height: 58px;
     font-size: 24px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.21;
-    letter-spacing: normal;
     text-align: center;
 }
 
@@ -54,10 +50,6 @@
     background-color: #ffffff;
     font-size: 18px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #e990f9;
 }
 

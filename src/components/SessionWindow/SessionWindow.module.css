@@ -36,13 +36,8 @@
 .buttonText {
     width: 83px;
     height: 21px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    composes: forFont from "./../../App.css";
     font-size: 18px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
 }
 
 @media screen and (max-width: 420px) {

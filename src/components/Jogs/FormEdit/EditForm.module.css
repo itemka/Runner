@@ -44,15 +44,11 @@
 }
 
 .inputTitle {
+    composes: forFont from "./../../../App.css";
     margin-right: 15px;
     height: 19px;
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
     font-size: 16px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
 }
 
 .input {
@@ -82,15 +78,10 @@
 }
 
 .Save {
-    font-family: 'SFUIText', Arial, Helvetica, sans-serif;
+    composes: forFont from "./../../../App.css";
     width: 71px;
     height: 15px;
     font-size: 12px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: center;
 }
 
