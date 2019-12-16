@@ -13,7 +13,7 @@ export const formatDate = el => {
 };
 
 export const changeDateToLongFormat = date => {
-    return new Date(`${date}`.replace(/(\d+)\.(\d+)\.(\d+)/, "$2-$1-$3"));
+    return new Date(date.split(`.`).reverse().join('-'))
 };
 
 export const plusDaysToDate = (date, countOfDays) => {

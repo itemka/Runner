@@ -9,7 +9,7 @@ import {FilterContainer} from "./Filter/FilterContainer";
 import {Jogs} from "./Jogs";
 import Paginator from "../Paginator/Paginator";
 
-const JogsContainer = ({filter, turnOnEditForm, activateEditForm, jogsToRenderOnScreen, FilterDataOfJogs, loading,}) => {
+const JogsContainer = ({filter, turnOnEditForm, activateEditForm, jogsToRenderOnScreen, FilterDataOfJogs, loading}) => {
     let [jogForUpdate, setJogForUpdate] = useState(null);
     return (
         <div>

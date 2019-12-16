@@ -23,7 +23,7 @@ export const setCurrentUserAC = user => ({type: SET_CURRENT_USER, user});
 export const setCurrentUserJogsAC = jogs => ({type: SET_CURRENT_USER_JOGS, jogs});
 export const addNewJogDataAC = newJogData => ({type: ADD_NEW_JOG_DATA, newJogData});
 export const takeErrorAC = error => ({type: TAKE_ERROR, partOfObject: {error}});
-export const setLoadingAC = isLoading => ({type: SET_LOADING, partOfObject: {loading: isLoading}});
+export const setLoadingAC = loading => ({type: SET_LOADING, partOfObject: {loading}});
 export const updateItemOfJogs = updateJog => ({type: UPDATE_ITEM_OF_JOGS, updateJog});
 export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, partOfObject: {currentPage}});
 export const setJogsToRender = jogsToRender => ({type: SET_JOGS_TO_RENDER, jogsToRender});
@@ -113,27 +113,25 @@ export const FilterDataOfJogs = (leftBorder = '', rightBorder = '') => async (di
     try {
         dispatch(setLoadingAC(false)); // turn on preloader
 
-        let changLeftBorder = leftBorder !== '' ? changeDateToLongFormat(leftBorder).getTime() : '';
-        let changRightBorder = rightBorder !== '' ? plusDaysToDate(changeDateToLongFormat(rightBorder), 1) : '';
-        let userJogs = await getState().partOfTheState.currentUserJogs;
+        let changLeftBorder = leftBorder !== ''
+            ? changeDateToLongFormat(leftBorder).setHours(0)
+            : '';
+        let changRightBorder = rightBorder !== ''
+            ? plusDaysToDate(new Date(changeDateToLongFormat(rightBorder).setHours(0)), 1)
+            : '';
 
-        let filterData = await userJogs.filter(item => {
-            if (changLeftBorder !== '' && changRightBorder !== '') {
-                if (item.date * 1000 >= changLeftBorder && item.date * 1000 < changRightBorder) return true;
-                else return false;
-            }
+        let userJogs = getState().partOfTheState.currentUserJogs;
+        let filterData = [];
+        if (changLeftBorder !== '' && changRightBorder !== '') {
+            filterData = await userJogs.filter(item => item.date * 1000 >= changLeftBorder && item.date * 1000 < changRightBorder)
+        } else if (changLeftBorder === '' && changRightBorder !== '') {
+            filterData = userJogs.filter(item => item.date * 1000 < changRightBorder)
+        } else if (changLeftBorder !== '' && changRightBorder === '') {
+            filterData = userJogs.filter(item => item.date * 1000 >= changLeftBorder)
+        } else if (changLeftBorder === '' && changRightBorder === '') {
+            filterData = userJogs
+        }
 
-            if (changLeftBorder === '' && changRightBorder !== '') {
-                if (item.date * 1000 < changRightBorder) return true;
-                else return false;
-            }
-
-            if (changLeftBorder !== '' && changRightBorder === '') {
-                if (item.date * 1000 >= changLeftBorder) return true;
-                else return false;
-            }
-            if (changLeftBorder === '' && changRightBorder === '') return true;
-        });
         await dispatch(SetJogsToRender(filterData));
         await dispatch(SetCurrentPageThunk(1, filterData));
 
@@ -155,18 +153,24 @@ export const UpdateJogThunk = (distance = 0, time = 0, date = '', jogId) => asyn
             jog_id: jogId,
             user_id: getState().partOfTheState.currentUser.id,
         };
-        let response = await API.updateJog(getTokenFromLocalStorage(), newJog);
+
+        await API.updateJog(getTokenFromLocalStorage(), newJog);
 
         let updateItemOfJog = {
-            id: response.id,
+            id: jogId,
             user_id: getState().partOfTheState.currentUser.id,
             distance: distance,
             time: time,
             date: changeDate.getTime() / 1000,
         };
 
-        await dispatch(updateItemOfJogs(updateItemOfJog));
-        await dispatch(SetCurrentPageThunk(getState().partOfTheState.currentPage)); // set array to render
+        let newCurrentUserJogs = await getState().partOfTheState.currentUserJogs.map(item => {
+            if (item.id === jogId) return {...updateItemOfJog};
+            else return item;
+        });
+
+        dispatch(updateItemOfJogs(newCurrentUserJogs));
+        dispatch(SetCurrentPageThunk(getState().partOfTheState.currentPage)); // set array to render
 
         dispatch(setLoadingAC(true)); // turn off preloader
     } catch (err) {
@@ -182,6 +186,7 @@ export const SetJogsToRender = arrayToRender => async (dispatch, getState) => {
         for (let i = 1; i <= pagesCounter; i++) pagesCounterArray.push(i);
         await dispatch(setPagesCounterArray(pagesCounterArray));
         await dispatch(setJogsToRender(arrayToRender));
+        // alert(`SetJogsToRender end and ${arrayToRender.length}`)
     } catch (err) {
         dispatch(takeErrorAC(err))
     }
@@ -261,19 +266,13 @@ const Reducer = (state = initialState, action) => {
         case UPDATE_ITEM_OF_JOGS:
             return {
                 ...state,
-                currentUserJogs: state.currentUserJogs.map(item => {
-                    if (item.id === action.updateJog.id) return {...action.updateJog};
-                    else return item;
-                }),
-                jogsToRender: state.jogsToRender.map(item => {
-                    if (item.id === action.updateJog.id) return {...action.updateJog};
-                    else return item;
-                })
+                currentUserJogs: action.updateJog,
+                jogsToRender: action.updateJog
             };
         case SET_JOGS_TO_RENDER:
             return {
                 ...state,
-                jogsToRender: [...action.jogsToRender]
+                jogsToRender: action.jogsToRender
             };
         case SET_PAGES_COUNTER_ARRAY:
             return {
