@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/Runner/static/css/main.ec0f77e4.chunk.css",
+    "main.js": "/Runner/static/js/main.ebb33f1e.chunk.js",
+    "main.js.map": "/Runner/static/js/main.ebb33f1e.chunk.js.map",
+    "runtime-main.js": "/Runner/static/js/runtime-main.ce8e0bd8.js",
+    "runtime-main.js.map": "/Runner/static/js/runtime-main.ce8e0bd8.js.map",
+    "static/js/2.3b3c059c.chunk.js": "/Runner/static/js/2.3b3c059c.chunk.js",
+    "static/js/2.3b3c059c.chunk.js.map": "/Runner/static/js/2.3b3c059c.chunk.js.map",
+    "index.html": "/Runner/index.html",
+    "precache-manifest.f15121d0dd93e36d7ecc0f7a6bc3f545.js": "/Runner/precache-manifest.f15121d0dd93e36d7ecc0f7a6bc3f545.js",
+    "service-worker.js": "/Runner/service-worker.js",
+    "static/css/main.ec0f77e4.chunk.css.map": "/Runner/static/css/main.ec0f77e4.chunk.css.map",
+    "static/js/2.3b3c059c.chunk.js.LICENSE": "/Runner/static/js/2.3b3c059c.chunk.js.LICENSE",
+    "static/media/Spinner42px.svg": "/Runner/static/media/Spinner42px.a1652bca.svg",
+    "static/media/add.svg": "/Runner/static/media/add.69066924.svg",
+    "static/media/SessionWindow.module.css": "/Runner/static/media/bearFace.6ccf8dca.png",
+    "static/media/cancel.svg": "/Runner/static/media/cancel.f4075f42.svg",
+    "static/media/close.svg": "/Runner/static/media/close.3db7bdae.svg",
+    "static/media/jog.svg": "/Runner/static/media/jog.b575c000.svg",
+    "static/media/NothingIsThere.module.css": "/Runner/static/media/sad.f21f2755.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ce8e0bd8.js",
+    "static/js/2.3b3c059c.chunk.js",
+    "static/css/main.ec0f77e4.chunk.css",
+    "static/js/main.ebb33f1e.chunk.js"
+  ]
+}
