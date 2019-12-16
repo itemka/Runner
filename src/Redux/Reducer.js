@@ -1,5 +1,5 @@
 import {API, GetToken} from "../API/API";
-import {changeDateToLongFormat} from "../utils/changeDate";
+import {changeDateToLongFormat, plusDaysToDate} from "../utils/changeDate";
 import {getTokenFromLocalStorage, saveTokenToLocalStorage} from "../utils/LocalStorage";
 
 
@@ -75,7 +75,6 @@ const GetRunnerData = (token, currentUserId) => async dispatch => {
         let runnerData = await data.reverse().filter(item => item.user_id === currentUserId);
         await dispatch(setCurrentUserJogsAC(runnerData));
         await dispatch(SetJogsToRender(runnerData));
-        console.log(`runnerData`, runnerData)
         await dispatch(SetCurrentPageThunk(1, runnerData));
     } catch (err) {
         dispatch(takeErrorAC(err))
@@ -115,17 +114,17 @@ export const FilterDataOfJogs = (leftBorder = '', rightBorder = '') => async (di
         dispatch(setLoadingAC(false)); // turn on preloader
 
         let changLeftBorder = leftBorder !== '' ? changeDateToLongFormat(leftBorder).getTime() : '';
-        let changRightBorder = rightBorder !== '' ? changeDateToLongFormat(rightBorder).getTime() : '';
+        let changRightBorder = rightBorder !== '' ? plusDaysToDate(changeDateToLongFormat(rightBorder), 1) : '';
         let userJogs = await getState().partOfTheState.currentUserJogs;
 
         let filterData = await userJogs.filter(item => {
             if (changLeftBorder !== '' && changRightBorder !== '') {
-                if (item.date * 1000 >= changLeftBorder && item.date * 1000 <= changRightBorder) return true;
+                if (item.date * 1000 >= changLeftBorder && item.date * 1000 < changRightBorder) return true;
                 else return false;
             }
 
             if (changLeftBorder === '' && changRightBorder !== '') {
-                if (item.date * 1000 <= changRightBorder) return true;
+                if (item.date * 1000 < changRightBorder) return true;
                 else return false;
             }
 
@@ -135,7 +134,6 @@ export const FilterDataOfJogs = (leftBorder = '', rightBorder = '') => async (di
             }
             if (changLeftBorder === '' && changRightBorder === '') return true;
         });
-        console.log(filterData);
         await dispatch(SetJogsToRender(filterData));
         await dispatch(SetCurrentPageThunk(1, filterData));
 
@@ -193,12 +191,10 @@ export const SetCurrentPageThunk = (currentPage, jogsToRender = null) => async (
         await dispatch(setCurrentPage(currentPage));
         let pageSize = getState().partOfTheState.pageSize;
         let jogs = jogsToRender === null ? getState().partOfTheState.jogsToRender : jogsToRender;
-        console.log(`123`, getState().partOfTheState.jogsToRender)
+
         let arrayToRender = await jogs.filter((item, index) => {
-            if (index >= (currentPage - 1) * pageSize && index <= currentPage * pageSize - 1) {
-                console.log(`index`, index);
-                return true;
-            } else return false;
+            if (index >= (currentPage - 1) * pageSize && index <= currentPage * pageSize - 1) return true;
+            else return false;
         });
 
         await dispatch(setJogsToRenderOnScreen(arrayToRender));

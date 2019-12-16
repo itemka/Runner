@@ -9,13 +9,8 @@ import {FilterContainer} from "./Filter/FilterContainer";
 import {Jogs} from "./Jogs";
 import Paginator from "../Paginator/Paginator";
 
-const JogsContainer = ({
-                           filter, turnOnEditForm, activateEditForm, jogsToRenderOnScreen,
-                           FilterDataOfJogs, loading,
-                       }) => {
+const JogsContainer = ({filter, turnOnEditForm, activateEditForm, jogsToRenderOnScreen, FilterDataOfJogs, loading,}) => {
     let [jogForUpdate, setJogForUpdate] = useState(null);
-    let jogsArray =  jogsToRenderOnScreen;
-
     return (
         <div>
             {turnOnEditForm
@@ -28,13 +23,13 @@ const JogsContainer = ({
                     {!loading ? <Preloader/>
                         : jogsToRenderOnScreen.length === 0
                             ? <NothingIsThere activateEditForm={activateEditForm}/>
-                            : <Jogs jogsArray={jogsArray} activateEditForm={activateEditForm}
+                            : <Jogs jogsArray={jogsToRenderOnScreen} activateEditForm={activateEditForm}
                                     setJogForUpdate={setJogForUpdate}/>
                     }
 
                 </>
             }
-            {jogsArray.length !== 0 && !turnOnEditForm && <Paginator/>}
+            {jogsToRenderOnScreen.length !== 0 && !turnOnEditForm && <Paginator/>}
         </div>
     )
 };

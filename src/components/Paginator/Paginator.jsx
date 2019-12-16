@@ -5,7 +5,7 @@ import css from "./Paginator.module.css";
 import {PaginatorButton} from "./PaginatorsButton/PaginatorsButton";
 import {SetCurrentPageThunk, SetPortionNumberForPaginator} from "../../Redux/Reducer";
 
-const Paginator = ({portionSize = 10, currentPage, SetCurrentPageThunk, pagesCounterArray, currentPortionForPaginator, SetPortionNumberForPaginator}) => {
+const Paginator = ({portionSize = 2, currentPage, SetCurrentPageThunk, pagesCounterArray, currentPortionForPaginator, SetPortionNumberForPaginator}) => {
 
     // calculate count of pages portions
     let portionCount = Math.ceil(pagesCounterArray.length / portionSize);
